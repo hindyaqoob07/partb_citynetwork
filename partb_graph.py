@@ -43,7 +43,36 @@ roads_with_weights = [
 for edge in roads_with_weights:#this line uses a foor loop which iterates over the roads_with_weights
     G.add_edge(edge[0], edge[1], weight=edge[2])
 
-# Thiese line draw the graph
+def dijkstra_path(graph, start, end):#This line defines a function for the dijstra algorithm which includes graph start and end in the argument
+    try: #This line try to find the shortest path using NetworkX's dijkstra_path function
+        return nx.dijkstra_path(graph, start, end)
+    except nx.NetworkXNoPath: #If no path exists between the start and end nodes it return None
+        return None
+# Test cases for package distribution
+package_distribution_test_cases = [
+    ("Z1", "E1"),
+    ("JB1", "AB1"),
+    ("US1", "H2")
+]
+
+print("[2] Package Distribution Scenario:")
+for start, end in package_distribution_test_cases: #This line uses a for loop that iterates through each test case & find the shortest path using the dijkstra_path function
+    path = dijkstra_path(G, start, end) #This line defines a variable path 
+    print(f"Shortest path from {start} to {end}: {path}")
+
+# Test cases for reaching a point
+reach_point_test_cases = [
+    ("Z1", "MBZ1"),
+    ("JB3", "S1"), 
+    ("W4", "AB2")
+]
+
+print("\n[3] Reaching a Point Scenario:")
+for start, end in reach_point_test_cases:#This line uses a for loop that iterates through each test case and find the shortest path using the dijkstra_path function
+    path = dijkstra_path(G, start, end) #This line defines a variable path 
+    print(f"Shortest path from {start} to {end}: {path}")
+    
+# These lines draw the graph
 plt.figure(figsize=(20, 15)) #This line creates a new figure with a specific size for the plot
 pos = nx.spring_layout(G, seed=42)  # This line computes node positions using the spring layout algorithm
 nx.draw_networkx_nodes(G, pos, node_size=2000, node_color='lightgrey')  # This line draws nodes with specified size and color
